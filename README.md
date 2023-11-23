@@ -10,7 +10,7 @@ Run the following command:
 npx create-turbo@latest
 ```
 
-## What's inside? x
+## What's inside? x2
 
 This Turborepo includes the following packages/apps:
 
