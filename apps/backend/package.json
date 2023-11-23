@@ -32,6 +32,7 @@
     "@nestjs/jwt": "10.2.0",
     "bcrypt": "5.1.1",
     "@types/bcrypt": "5.0.2",
+    "nanoid": "5.0.3",
     "pg": "8.11.3"
   },
   "devDependencies": {
