@@ -29,7 +29,7 @@ describe('AppController (e2e)', () => {
   });
 
   it('Register', async () => {
-    const name = 'asdasascasdasassscasssscas';
+    const name = 'aaa';
     const email = 'oktestabcd@gmail.com';
     const password = 'mothaiba';
     const result = await request(app.getHttpServer())
