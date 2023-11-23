@@ -67,7 +67,7 @@ describe('AppController (e2e)', () => {
       });
 
     expect(result.statusCode).toEqual(400);
-    expect(JSON.parse(result.text).message).toEqual('username is exists');
+    expect(result.body.message).toEqual('username is exists');
   });
 
   it('Register with email', async () => {
@@ -91,7 +91,80 @@ describe('AppController (e2e)', () => {
       });
 
     expect(result.statusCode).toEqual(400);
-    expect(JSON.parse(result.text).message).toEqual('email is exists');
+    expect(result.body.message).toEqual('email is exists');
+  });
+
+  // Sign in
+  it('Sign in with email', async () => {
+    const result = await request(app.getHttpServer()).post('/auth/login').send({
+      email,
+      password,
+    });
+
+    expect(result.statusCode).toEqual(200);
+    expect(result.body.access_token).not.toBeNull();
+  });
+
+  it('Sign in with name', async () => {
+    const result = await request(app.getHttpServer()).post('/auth/login').send({
+      name,
+      password,
+    });
+
+    expect(result.statusCode).toEqual(200);
+    expect(result.body.access_token).not.toBeNull();
+  });
+
+  it('Sign in with email', async () => {
+    const result = await request(app.getHttpServer()).post('/auth/login').send({
+      email,
+      password,
+    });
+
+    expect(result.statusCode).toEqual(200);
+    expect(result.body.access_token).not.toBeNull();
+  });
+
+  it('Sign in with not exists name', async () => {
+    // const result = await request(app.getHttpServer()).post('/auth/login').send({
+    //   name,
+    //   password,
+    // });
+    // expect(result.statusCode).toEqual(200);
+    // expect(result.body.access_token).not.toBeNull();
+  });
+
+  it('Sign in with not exists email', async () => {
+    // const result = await request(app.getHttpServer()).post('/auth/login').send({
+    //   name,
+    //   password,
+    // });
+    // expect(result.statusCode).toEqual(200);
+    // expect(result.body.access_token).not.toBeNull();
+  });
+
+  it('Sign in with name, not correct password', async () => {
+    // const result = await request(app.getHttpServer()).post('/auth/login').send({
+    //   name,
+    //   password,
+    // });
+    // expect(result.statusCode).toEqual(200);
+    // expect(result.body.access_token).not.toBeNull();
+  });
+
+  it('Sign in with email, not correct password', async () => {
+    // const result = await request(app.getHttpServer()).post('/auth/login').send({
+    //   name,
+    //   password,
+    // });
+    // expect(result.statusCode).toEqual(200);
+    // expect(result.body.access_token).not.toBeNull();
+  });
+
+  it('user sign in can get profile', async () => {
+    // const result = await request(app.getHttpServer()).get('/users');
+    // expect(result.statusCode).toEqual(401);
+    // expect(result.body.message).toEqual('Unauthorized');
   });
 
   afterAll(async () => {});

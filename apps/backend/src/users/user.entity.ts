@@ -47,4 +47,13 @@ export class User {
 
   @Column({ nullable: true })
   updateBy: string;
+
+  toJSON() {
+    return {
+      id: this.id,
+      name: this.name,
+      email: this.email,
+      isActive: this.isActive,
+    };
+  }
 }

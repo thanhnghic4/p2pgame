@@ -19,8 +19,23 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  signIn(@Body() signInDto: Record<string, any>) {
-    return this.authService.signIn(signInDto.username, signInDto.password);
+  async signIn(@Body() signInDto: RegisterUserDto) {
+    let token;
+    if (signInDto?.email && signInDto?.password) {
+      token = await this.authService.signInWithEmail(
+        signInDto.email,
+        signInDto.password,
+      );
+    }
+    if (signInDto?.name && signInDto?.password) {
+      token = await this.authService.signInWithName(
+        signInDto.name,
+        signInDto.password,
+      );
+    }
+    if (token) {
+      return token;
+    }
   }
 
   @Public()
