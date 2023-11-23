@@ -24,20 +24,22 @@ describe('AppController (e2e)', () => {
 
   it('Authorization is enable', async () => {
     const result = await request(app.getHttpServer()).get('/users');
-    expect(result.body.statusCode).toEqual(401);
+    expect(result.statusCode).toEqual(401);
     expect(result.body.message).toEqual('Unauthorized');
   });
 
   it('Register', async () => {
-    const userName = 'oktestabcd';
-    const userEmail = 'oktestabcd@gmail.com';
+    const name = 'asdasascasdasassscasssscas';
+    const email = 'oktestabcd@gmail.com';
+    const password = 'mothaiba';
     const result = await request(app.getHttpServer())
       .post('/auth/register')
       .send({
-        userName,
-        userEmail,
+        name,
+        password,
       });
-    expect(result.body.statusCode).toEqual(200);
-    expect(result.body.message).toEqual('register success');
+
+    expect(result.statusCode).toEqual(200);
+    expect(result.text).toEqual('register success');
   });
 });

@@ -26,18 +26,22 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('register')
-  register(@Body() registerDto: RegisterUserDto) {
+  async register(@Body() registerDto: RegisterUserDto) {
+    let newUser = null;
     if (registerDto?.email && registerDto?.password) {
-      return this.authService.registerWithEmail(
+      newUser = await this.authService.registerWithEmail(
         registerDto.email,
         registerDto.password,
       );
     }
     if (registerDto?.name && registerDto?.password) {
-      return this.authService.registerWithName(
+      newUser = await this.authService.registerWithName(
         registerDto.name,
         registerDto.password,
       );
+    }
+    if (newUser) {
+      return 'register success';
     }
 
     throw new BadRequestException();
