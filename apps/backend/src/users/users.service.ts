@@ -13,9 +13,9 @@ export class UsersService {
 
   create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
-    user.firstName = createUserDto.firstName;
-    user.lastName = createUserDto.lastName;
-
+    user.name = createUserDto.name;
+    user.email = createUserDto.email;
+    user.password = createUserDto.password;
     return this.usersRepository.save(user);
   }
 
@@ -25,6 +25,14 @@ export class UsersService {
 
   findOne(id: number): Promise<User> {
     return this.usersRepository.findOneBy({ id: id });
+  }
+
+  findOneByName(name: string): Promise<User> {
+    return this.usersRepository.findOneBy({ name });
+  }
+
+  findOneByEmail(email: string): Promise<User> {
+    return this.usersRepository.findOneBy({ email });
   }
 
   async remove(id: string): Promise<void> {

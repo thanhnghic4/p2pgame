@@ -27,4 +27,17 @@ describe('AppController (e2e)', () => {
     expect(result.body.statusCode).toEqual(401);
     expect(result.body.message).toEqual('Unauthorized');
   });
+
+  it('Register', async () => {
+    const userName = 'oktestabcd';
+    const userEmail = 'oktestabcd@gmail.com';
+    const result = await request(app.getHttpServer())
+      .post('/auth/register')
+      .send({
+        userName,
+        userEmail,
+      });
+    expect(result.body.statusCode).toEqual(200);
+    expect(result.body.message).toEqual('register success');
+  });
 });
