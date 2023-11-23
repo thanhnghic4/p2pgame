@@ -15,10 +15,16 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it('Server is not crash', () => {
     return request(app.getHttpServer())
       .get('/')
       .expect(200)
       .expect('Hello World!');
+  });
+
+  it('Authorization is enable', async () => {
+    const result = await request(app.getHttpServer()).get('/users');
+    expect(result.body.statusCode).toEqual(401);
+    expect(result.body.message).toEqual('Unauthorized');
   });
 });
