@@ -1,46 +1,28 @@
-# Getting Started with Create React App
+---
+title: Authentication (using RouterProvider)
+toc: false
+---
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Auth Example (using RouterProvider)
 
-## Available Scripts
+This example demonstrates how to restrict access to routes to authenticated users when using `<RouterProvider>`.
 
-In the project directory, you can run:
+The primary difference compared to how authentication was handled in `BrowserRouter` is that since `RouterProvider` decouples fetching from rendering, we can no longer rely on React context and/or hooks to get our user authentication status. We need access to this information outside of the React tree so we can use it in our route `loader` and `action` functions.
 
-### `npm start`
+For some background information on this design choice, please check out the [Remixing React Router](https://remix.run/blog/remixing-react-router) blog post and Ryan's [When to Fetch](https://www.youtube.com/watch?v=95B8mnhzoCM) talk from Reactathon.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Be sure to pay attention to the following features in this example:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- The use of a standalone object _outside of the React tree_ that manages our authentication state
+- The use of `loader` functions to check for user authentication
+- The use of `redirect` from the `/protected` `loader` when the user is not logged in
+- The use of a `<Form>` and an `action` to perform the login
+- The use of a `from` search param and a `redirectTo` hidden input to preserve the previous location so you can send the user there after they authenticate
+- The use of `<Form replace>` to replace the `/login` route in the history stack so the user doesn't return to the login page when clicking the back button after logging in
+- The use of a `<fetcher.Form>` and an `action` to perform the logout
 
-### `npm test`
+## Preview
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Open this example on [StackBlitz](https://stackblitz.com):
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router/tree/main/examples/auth-router-provider?file=src/App.tsx)
