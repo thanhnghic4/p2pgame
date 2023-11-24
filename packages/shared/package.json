@@ -1,0 +1,21 @@
+{
+  "name": "@xgame/core",
+  "version": "0.0.20",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "pack": "npm pack",
+    "dev": "tsc --watch",
+    "lint": "eslint \"**/*.ts*\""
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "react": "^18.2.0",
+    "tsconfig": "*",
+    "typescript": "5.1.6"
+  },
+  "files": [
+    "./dist"
+  ]
+}
