@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, redirect } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import LoginScreen from '../screen/login.screen';
 import RegisterScreen from '../screen/register.screen';
 import ProfileScreen from '../screen/profile.screen';
@@ -26,13 +26,15 @@ function PrivateRoute(props: any) {
 }
 
 const PrivateScreen = ({ children }: { children: React.ReactNode }) => {
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(true);
   const { isLogin, setIsLogin } = useContext(AuthenticationContext);
   console.log('private');
   useEffect(() => {
     setTimeout(async () => {
       console.log('redirect');
-      redirect('/login');
+      navigate('/login');
     }, 1000);
   }, []);
   return <> {loading ? <Loading /> : <> {children}</>}</>;
