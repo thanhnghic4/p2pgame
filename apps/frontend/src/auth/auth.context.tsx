@@ -5,7 +5,11 @@ export type AuthenticationContextType = {
   userProfile: any;
   setIsLogin: any;
   setUserProfile: any;
-} | null;
+};
 
-export const AuthenticationContext =
-  createContext<AuthenticationContextType>(null);
+export const AuthenticationContext = createContext<AuthenticationContextType>({
+  isLogin: false,
+  userProfile: null,
+  setIsLogin: null,
+  setUserProfile: null,
+});
