@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import LoginScreen from '../screen/login.screen';
 import RegisterScreen from '../screen/register.screen';
 import ProfileScreen from '../screen/profile.screen';
@@ -26,7 +26,7 @@ function PrivateRoute(props: any) {
 }
 
 const PrivateScreen = ({ children }: { children: React.ReactNode }) => {
-  const navigate = useNavigate();
+
 
   const [loading, setLoading] = useState(true);
   const { isLogin, setIsLogin } = useContext(AuthenticationContext);
@@ -34,7 +34,7 @@ const PrivateScreen = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setTimeout(async () => {
       console.log('redirect');
-      navigate('/login');
+      // navigate('/login');
     }, 1000);
   }, []);
   return <> {loading ? <Loading /> : <> {children}</>}</>;
@@ -44,23 +44,28 @@ const RouterManager = () => {
   console.log('hello');
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/login' Component={LoginScreen} />
-          <Route path='/register' Component={RegisterScreen} />
-          <Route path='/*' Component={ProfileScreen} />
-          <Route
-            path='/main'
-            Component={() => {
-              return (
-                <PrivateScreen>
-                  <MainScreen />
-                </PrivateScreen>
-              );
-            }}
-          />
-        </Routes>
-      </BrowserRouter>
+      <Router>
+        <Switch>
+          <Route exact path='/login' >
+            <LoginScreen />
+          </Route>
+
+          <Route exact path='/register' >
+            <RegisterScreen />
+          </Route>
+
+          <Route exact path='/*' >
+            <ProfileScreen />
+          </Route>
+
+          <Route exact path='/main' >
+            <PrivateScreen>
+            <MainScreen />
+            </PrivateScreen>
+          </Route>
+
+        </Switch>
+      </Router>
     </>
   );
 };
