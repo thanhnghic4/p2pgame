@@ -5,17 +5,16 @@ services:
     container_name: xgame_postgres_container
     image: postgres
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postres
-      PGDATA: /data/postgres
+      - POSTGRES_USER=xgame
+      - POSTGRES_PASSWORD=xgame
+      - POSTGRES_DATABASE=xgame
+      - PGDATA=/data/postgres
     volumes:
-       - postgres:/data/postgres
+      - gud2:/data/postgres
     ports:
-      - "5432:5432"
-    networks:
-      - postgres
+      - '5432:5432'
     restart: unless-stopped
-  
+
   # pgadmin:
   #   container_name: pgadmin_container
   #   image: dpage/pgadmin4
@@ -32,10 +31,9 @@ services:
   #     - postgres
   #   restart: unless-stopped
 
-networks:
-  postgres:
-    driver: bridge
+# networks:
+#   postgres:
+#     driver: bridge
 
 volumes:
-    postgres:
-    pgadmin:
+  gud2:
