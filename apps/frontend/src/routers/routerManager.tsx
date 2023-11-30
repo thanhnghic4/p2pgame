@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch , useHistory} from 'react-router-dom';
 import LoginScreen from '../screen/login.screen';
 import RegisterScreen from '../screen/register.screen';
 import ProfileScreen from '../screen/profile.screen';
@@ -13,7 +13,6 @@ const Loading = () => {
   return <div>loading</div>;
 };
 function PrivateRoute(props: any) {
-  console.log('hello 2');
   let { component: Component, children, render, ...rest } = props;
 
   const [loading, setLoading] = useState(true);
@@ -30,18 +29,18 @@ const PrivateScreen = ({ children }: { children: React.ReactNode }) => {
 
   const [loading, setLoading] = useState(true);
   const { isLogin, setIsLogin } = useContext(AuthenticationContext);
-  console.log('private');
+  const history = useHistory();
   useEffect(() => {
     setTimeout(async () => {
       console.log('redirect');
-      // navigate('/login');
+      history.push('/login');
     }, 1000);
   }, []);
   return <> {loading ? <Loading /> : <> {children}</>}</>;
 };
 
 const RouterManager = () => {
-  console.log('hello');
+
   return (
     <>
       <Router>
@@ -55,12 +54,16 @@ const RouterManager = () => {
           </Route>
 
           <Route exact path='/*' >
+            <LoginScreen />
+          </Route>
+
+          <Route exact path='/profile' >
             <ProfileScreen />
           </Route>
 
           <Route exact path='/main' >
             <PrivateScreen>
-            <MainScreen />
+              <MainScreen />
             </PrivateScreen>
           </Route>
 
