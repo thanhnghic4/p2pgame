@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Logger,
   Post,
   Request,
 } from '@nestjs/common';
@@ -14,6 +15,7 @@ import { RegisterUserDto } from './dto/create-user.dto';
 
 @Controller('auth')
 export class AuthController {
+  private readonly logger = new Logger('AuthController');
   constructor(private authService: AuthService) {}
 
   @Public()
@@ -43,22 +45,24 @@ export class AuthController {
   @Post('register')
   async register(@Body() registerDto: RegisterUserDto) {
     let newUser = null;
-    if (registerDto?.email && registerDto?.password) {
-      newUser = await this.authService.registerWithEmail(
-        registerDto.email,
-        registerDto.password,
-      );
+    try {
+      if (registerDto?.email && registerDto?.password) {
+        newUser = await this.authService.registerWithEmail(
+          registerDto.email,
+          registerDto.password,
+        );
+      } else if (registerDto?.name && registerDto?.password) {
+        newUser = await this.authService.registerWithName(
+          registerDto.name,
+          registerDto.password,
+        );
+      }
+      if (newUser) {
+        return 'register success';
+      }
+    } catch (err) {
+      this.logger.error('[Register]', JSON.stringify(err));
     }
-    if (registerDto?.name && registerDto?.password) {
-      newUser = await this.authService.registerWithName(
-        registerDto.name,
-        registerDto.password,
-      );
-    }
-    if (newUser) {
-      return 'register success';
-    }
-
     throw new BadRequestException();
   }
 

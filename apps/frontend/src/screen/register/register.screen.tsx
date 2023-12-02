@@ -1,12 +1,13 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import type { IBaseFormInputEvent, IBaseFormSubmitEvent } from '../login';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import type { IBaseFormInputEvent, IBaseFormSubmitEvent } from "../login";
+import { registerUser } from "../../service";
 
 const RegisterScreen = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleNameChange = (e: IBaseFormInputEvent) => {
     setName(e.target.value as string);
@@ -24,15 +25,16 @@ const RegisterScreen = () => {
     setConfirmPassword(e.target.value as string);
   };
 
-  const handleSubmit = (e: IBaseFormSubmitEvent) => {
+  const handleSubmit = async (e: IBaseFormSubmitEvent) => {
     e.preventDefault();
-    // Add your registration logic here (e.g., API call, validation)
-    console.log('Registration submitted with:', { name, email, password, confirmPassword });
-    // Reset form fields after submission
-    setName('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
+    const submitRegister = await registerUser({ name, email, password });
+
+    if (!submitRegister.success) alert(submitRegister.message);
+  
+    setName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
   };
 
   return (
@@ -41,17 +43,32 @@ const RegisterScreen = () => {
       <form onSubmit={handleSubmit}>
         <label>
           Name:
-          <input type="text" value={name} onChange={handleNameChange} required />
+          <input
+            type="text"
+            value={name}
+            onChange={handleNameChange}
+            required
+          />
         </label>
         <br />
         <label>
           Email:
-          <input type="email" value={email} onChange={handleEmailChange} required />
+          <input
+            type="email"
+            value={email}
+            onChange={handleEmailChange}
+            required
+          />
         </label>
         <br />
         <label>
           Password:
-          <input type="password" value={password} onChange={handlePasswordChange} required />
+          <input
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+            required
+          />
         </label>
         <br />
         <label>
@@ -66,8 +83,10 @@ const RegisterScreen = () => {
         <br />
         <button type="submit">Register</button>
       </form>
-      
-      <p>Already have an account? <Link to="/login">Login here</Link></p>
+
+      <p>
+        Already have an account? <Link to="/login">Login here</Link>
+      </p>
     </div>
   );
 };
