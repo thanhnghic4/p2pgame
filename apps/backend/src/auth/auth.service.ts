@@ -23,7 +23,7 @@ export class AuthService {
       throw new BadRequestException('username not exists');
     }
 
-    if ((await bcrypt.compareSync(password, user?.password)) === false) {
+    if (!bcrypt.compareSync(password, user?.password)) {
       throw new UnauthorizedException('wrong pass');
     }
 

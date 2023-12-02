@@ -1,12 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch , useHistory} from 'react-router-dom';
-import LoginScreen from '../screen/login.screen';
-import RegisterScreen from '../screen/register.screen';
+import RegisterScreen from '../screen/register';
+import LoginScreen from '../screen/login';
 import ProfileScreen from '../screen/profile.screen';
-import {
-  AuthenticationContext,
-  AuthenticationContextType,
-} from '../auth/auth.context';
+import { AuthenticationContext } from '../auth/auth.context';
 import MainScreen from '../screen/main.screen';
 
 const Loading = () => {
