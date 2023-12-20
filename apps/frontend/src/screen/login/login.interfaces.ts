@@ -1,5 +1,5 @@
 export interface IBaseFormInputEvent {
-  target : {
+  target: {
     value: string | number;
   };
 }

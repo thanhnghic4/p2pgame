@@ -1,5 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useContext, useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch , useHistory} from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useHistory,
+} from 'react-router-dom';
 import RegisterScreen from '../screen/register';
 import LoginScreen from '../screen/login';
 import ProfileScreen from '../screen/profile.screen';
@@ -10,7 +16,7 @@ const Loading = () => {
   return <div>loading</div>;
 };
 function PrivateRoute(props: any) {
-  let { component: Component, children, render, ...rest } = props;
+  const { component: Component, children, render, ...rest } = props;
 
   const [loading, setLoading] = useState(true);
   const { isLogin } = useContext(AuthenticationContext);
@@ -22,8 +28,6 @@ function PrivateRoute(props: any) {
 }
 
 const PrivateScreen = ({ children }: { children: React.ReactNode }) => {
-
-
   const [loading, setLoading] = useState(true);
   const { isLogin, setIsLogin } = useContext(AuthenticationContext);
   const history = useHistory();
@@ -37,33 +41,31 @@ const PrivateScreen = ({ children }: { children: React.ReactNode }) => {
 };
 
 const RouterManager = () => {
-
   return (
     <>
       <Router>
         <Switch>
-          <Route exact path='/login' >
+          <Route exact path="/login">
             <LoginScreen />
           </Route>
 
-          <Route exact path='/register' >
+          <Route exact path="/register">
             <RegisterScreen />
           </Route>
 
-          <Route exact path='/*' >
+          <Route exact path="/*">
             <LoginScreen />
           </Route>
 
-          <Route exact path='/profile' >
+          <Route exact path="/profile">
             <ProfileScreen />
           </Route>
 
-          <Route exact path='/main' >
+          <Route exact path="/main">
             <PrivateScreen>
               <MainScreen />
             </PrivateScreen>
           </Route>
-
         </Switch>
       </Router>
     </>

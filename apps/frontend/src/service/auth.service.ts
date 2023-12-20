@@ -1,11 +1,11 @@
-import axios from "axios";
-import type { IRegisterUserDTO } from "./dto";
-import type { IRegisterResult } from "./interfaces";
+import axios from 'axios';
+import type { IRegisterUserDTO } from './dto';
+import type { IRegisterResult } from './interfaces';
 
-const API_HOST_URL = process.env["REACT_APP_API_HOST"];
+const API_HOST_URL = process.env['REACT_APP_API_HOST'];
 
 export const registerUser = async (
-  newUser: IRegisterUserDTO
+  newUser: IRegisterUserDTO,
 ): Promise<IRegisterResult> => {
   console.log(process.env);
   const url = `${API_HOST_URL}/auth/register`;
@@ -18,7 +18,7 @@ export const registerUser = async (
   } catch (err) {
     return {
       success: false,
-      message: "Register failed. Please try again!",
+      message: 'Register failed. Please try again!',
     };
   }
 };

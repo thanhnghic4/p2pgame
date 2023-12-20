@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import type { IBaseFormInputEvent, IBaseFormSubmitEvent } from "../login";
-import { registerUser } from "../../service";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import type { IBaseFormInputEvent, IBaseFormSubmitEvent } from '../login';
+import { registerUser } from '../../service';
 
 const RegisterScreen = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleNameChange = (e: IBaseFormInputEvent) => {
     setName(e.target.value as string);
@@ -30,11 +30,11 @@ const RegisterScreen = () => {
     const submitRegister = await registerUser({ name, email, password });
 
     if (!submitRegister.success) alert(submitRegister.message);
-  
-    setName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
+
+    setName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
   };
 
   return (
