@@ -7,7 +7,7 @@ import {
   useHistory,
 } from 'react-router-dom';
 import RegisterScreen from '../screen/register';
-import LoginScreen from '../screen/login';
+import LoginScreen, { LoginTemplateEnum } from '../screen/login';
 import ProfileScreen from '../screen/profile.screen';
 import { AuthenticationContext } from '../auth/auth.context';
 import MainScreen from '../screen/main.screen';
@@ -46,7 +46,7 @@ const RouterManager = () => {
       <Router>
         <Switch>
           <Route exact path="/login">
-            <LoginScreen />
+            <LoginScreen template={LoginTemplateEnum.GAMING} />
           </Route>
 
           <Route exact path="/register">
@@ -54,7 +54,7 @@ const RouterManager = () => {
           </Route>
 
           <Route exact path="/*">
-            <LoginScreen />
+            <LoginScreen template={LoginTemplateEnum.GAMING} />
           </Route>
 
           <Route exact path="/profile">
